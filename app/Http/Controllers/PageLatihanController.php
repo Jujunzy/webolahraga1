@@ -23,40 +23,42 @@ class PageLatihanController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validasi data
-    $request->validate([
-        'anggota_id' => 'required',
-        'jenis_id' => 'required',
-        'tanggal' => 'required|date',
-        'durasi' => 'required|string',
-    ], [
-        'anggota_id.required' => 'Anggota harus dipilih.',
-        'jenis_id.required' => 'Jenis harus dipilih.',
-        'tanggal.required' => 'Tanggal tidak boleh kosong.',
-        'tanggal.date' => 'Format tanggal tidak valid.',
-        'durasi.required' => 'Durasi latihan harus diisi.'
-    ]);
+    {
+        // Validasi data
+        $request->validate([
+            'anggota_id' => 'required',
+            'jenis_id' => 'required',
+            'tanggal' => 'required|date|after_or_equal:today',
+            'durasi' => 'required|string',
+        ], [
+            'anggota_id.required' => 'Anggota harus dipilih.',
+            'jenis_id.required' => 'Jenis harus dipilih.',
+            'tanggal.required' => 'Tanggal tidak boleh kosong.',
+            'tanggal.date' => 'Format tanggal tidak valid.',
+            'tanggal.after_or_equal' => 'Tanggal tidak boleh kurang dari hari ini.',
+            'durasi.required' => 'Durasi latihan harus diisi.'
+        ]);
 
-    // Cek keunikan anggota_id
-    $existsAnggota = Latihan::where('anggota_id', $request->anggota_id)
-        ->exists();
+        // Cek keunikan anggota_id
+        $existsAnggota = Latihan::where('anggota_id', $request->anggota_id)
+            ->exists();
 
-    if ($existsAnggota) {
-        Alert::error('Gagal', 'Latihan untuk anggota ini sudah ada.');
-        return redirect()->back()->withInput();
+        if ($existsAnggota) {
+            Alert::error('Gagal', 'Latihan untuk anggota ini sudah ada.');
+            return redirect()->back()->withInput();
+        }
+
+        try {
+            // Simpan data jika validasi lolos
+            Latihan::create($request->all());
+            Alert::success('Berhasil', 'Latihan berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
+        }
+
+        return redirect()->route('latihan.index');
     }
 
-    try {
-        // Simpan data jika validasi lolos
-        Latihan::create($request->all());
-        Alert::success('Berhasil', 'Latihan berhasil ditambahkan!');
-    } catch (\Exception $e) {
-        Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
-    }
-
-    return redirect()->route('latihan.index');
-}
 
 
     public function edit($id)
