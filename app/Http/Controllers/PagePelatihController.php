@@ -22,12 +22,15 @@ class PagePelatihController extends Controller
     {
         // Validasi data agar tidak ada duplikat
        try {
-        // Validasi data agar tidak ada duplikat
-        $request->validate([
-            'pelatih' => 'required|unique:pelatihs,pelatih',
-            'pengalaman' => 'required',
-            'kontak' => 'required'
-        ]);
+            // Validasi data agar tidak ada duplikat
+            $request->validate([
+                'pelatih' => 'required|unique:pelatihs,pelatih',
+                'pengalaman' => 'required',
+                'kontak' => 'required|unique:pelatihs,kontak,' . $request->id
+            ], [
+                'kontak.unique' => 'Kontak tidak boleh sama.'
+            ]);
+
 
         Pelatih::create($request->all());
         Alert::success('Berhasil', 'Pelatih berhasil ditambahkan!');

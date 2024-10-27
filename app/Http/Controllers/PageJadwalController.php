@@ -17,8 +17,8 @@ class PageJadwalController extends Controller
      */
     public function index()
     {
-        $data = Jadwal::with('pelatih','jenis')->get();
-        return view('page/jadwal/index', ['jadwal'=>$data]);
+        $data = Jadwal::with('pelatih', 'jenis')->get();
+        return view('page/jadwal/index', ['jadwal' => $data]);
     }
 
     /**
@@ -30,7 +30,7 @@ class PageJadwalController extends Controller
     {
         $pelatih = Pelatih::all();
         $jenis = Jenis::all();
-        return view('page.jadwal.create', compact('pelatih','jenis'));
+        return view('page.jadwal.create', compact('pelatih', 'jenis'));
     }
 
     /**
@@ -42,35 +42,34 @@ class PageJadwalController extends Controller
     public function store(Request $request)
     {
         // Validasi data
-    $request->validate([
-        'pelatih_id' => 'required',
-        'jenis_id' => 'required',
-        'tanggal' => 'required|date',
-    ], [
-        'pelatih_id.required' => 'pelatih harus dipilih.',
-        'jenis_id.required' => 'jenis harus dipilih.',
-        'tanggal.required' => 'tanggal harus diisi.'
-    ]);
+        $request->validate([
+            'pelatih_id' => 'required',
+            'jenis_id' => 'required',
+            'tanggal' => 'required|date',
+        ], [
+            'pelatih_id.required' => 'pelatih harus dipilih.',
+            'jenis_id.required' => 'jenis harus dipilih.',
+            'tanggal.required' => 'tanggal harus diisi.'
+        ]);
 
-    // Cek keunikan pelatih_id yang tidak boleh sama yaitu pelatihnya.
-    $existsPelatih = Jadwal::where('pelatih_id', $request->pelatih_id)
-        ->exists();
+        // Cek keunikan pelatih_id yang tidak boleh sama yaitu pelatihnya.
+        $existsPelatih = Jadwal::where('pelatih_id', $request->pelatih_id)
+            ->exists();
 
-    if ($existsPelatih) {
-        Alert::error('Gagal', 'Jadwal untuk pelatih ini sudah ada.');
-        return redirect()->back()->withInput();
-    }
+        if ($existsPelatih) {
+            Alert::error('Gagal', 'Jadwal untuk pelatih ini sudah ada.');
+            return redirect()->back()->withInput();
+        }
 
-    try {
-        // Simpan data jika validasi lolos
-        Jadwal::create($request->all());
-        Alert::success('Berhasil', 'Jadwal berhasil ditambahkan!');
-    } catch (\Exception $e) {
-        Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
-    }
+        try {
+            // Simpan data jika validasi lolos
+            Jadwal::create($request->all());
+            Alert::success('Berhasil', 'Jadwal berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
+        }
 
-    return redirect()->route('jadwal.index');
-
+        return redirect()->route('jadwal.index');
     }
 
     /**
@@ -92,11 +91,11 @@ class PageJadwalController extends Controller
      */
     public function edit($id)
     {
-        $jadwal =Jadwal::find($id);
-        $pelatih= Pelatih::all();
+        $jadwal = Jadwal::find($id);
+        $pelatih = Pelatih::all();
         $jenis = Jenis::all();
 
-        return view('page.jadwal.edit', compact('jadwal','pelatih','jenis'));
+        return view('page.jadwal.edit', compact('jadwal', 'pelatih', 'jenis'));
     }
 
     /**
@@ -151,7 +150,6 @@ class PageJadwalController extends Controller
         }
 
         return redirect()->route('jadwal.index');
-
     }
 
 
@@ -165,6 +163,10 @@ class PageJadwalController extends Controller
     {
         try {
             $jadwal = Jadwal::find($id);
+            if ($jadwal->jenis) {
+                Alert::error('Gagal', 'Jadwal tidak dapat dihapus karena masih ada data jenis olahraga terkait.');
+                return redirect()->route('jadwal.index');
+            }
             $jadwal->delete();
             Alert::success('Berhasil', 'Jadwal berhasil dihapus!');
         } catch (\Exception $e) {

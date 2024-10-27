@@ -43,4 +43,10 @@
         </div>
     </div>
 </div>
+<script>
+    const tanggal = document.getElementById('tanggal');
+
+    const today = new Date().toISOString().split("T")[0];
+    tanggal.setAttribute('min', today);
+</script>
 @endsection
