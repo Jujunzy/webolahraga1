@@ -24,39 +24,40 @@ class PageLatihanController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
-        $request->validate([
-            'anggota_id' => 'required',
-            'jenis_id' => 'required',
-            'tanggal' => 'required|date|after_or_equal:today',
-            'durasi' => 'required|string',
-        ], [
-            'anggota_id.required' => 'Anggota harus dipilih.',
-            'jenis_id.required' => 'Jenis harus dipilih.',
-            'tanggal.required' => 'Tanggal tidak boleh kosong.',
-            'tanggal.date' => 'Format tanggal tidak valid.',
-            'tanggal.after_or_equal' => 'Tanggal tidak boleh kurang dari hari ini.',
-            'durasi.required' => 'Durasi latihan harus diisi.'
-        ]);
+         // Validasi data
+    $request->validate([
+        'anggota_id' => 'required',
+        'jenis_id' => 'required',
+        'tanggal' => 'nullable|date|after_or_equal:today',
+        'durasi' => 'required|string',
+    ], [
+        'anggota_id.required' => 'Anggota harus dipilih.',
+        'jenis_id.required' => 'Jenis harus dipilih.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
+        'tanggal.after_or_equal' => 'Tanggal tidak boleh kurang dari hari ini.',
+        'durasi.required' => 'Durasi latihan harus diisi.'
+    ]);
 
-        // Cek keunikan anggota_id
-        $existsAnggota = Latihan::where('anggota_id', $request->anggota_id)
-            ->exists();
+    // Set tanggal menjadi hari ini jika tidak diisi
+    $data = $request->all();
+    $data['tanggal'] = $data['tanggal'] ?? now()->toDateString();
 
-        if ($existsAnggota) {
-            Alert::error('Gagal', 'Latihan untuk anggota ini sudah ada.');
-            return redirect()->back()->withInput();
-        }
+    // Cek keunikan anggota_id
+    $existsAnggota = Latihan::where('anggota_id', $request->anggota_id)->exists();
+    if ($existsAnggota) {
+        Alert::error('Gagal', 'Latihan untuk anggota ini sudah ada.');
+        return redirect()->back()->withInput();
+    }
 
-        try {
-            // Simpan data jika validasi lolos
-            Latihan::create($request->all());
-            Alert::success('Berhasil', 'Latihan berhasil ditambahkan!');
-        } catch (\Exception $e) {
-            Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
-        }
+    try {
+        // Simpan data jika validasi lolos
+        Latihan::create($data);
+        Alert::success('Berhasil', 'Latihan berhasil ditambahkan!');
+    } catch (\Exception $e) {
+        Alert::error('Gagal', 'Terjadi kesalahan saat menambah data.');
+    }
 
-        return redirect()->route('latihan.index');
+    return redirect()->route('latihan.index');
     }
 
 
@@ -72,21 +73,25 @@ class PageLatihanController extends Controller
 
     public function update(Request $request, $id)
 {
-    $latihan = Latihan::find($id);
+    $latihan = Latihan::findOrFail($id);
 
     // Validasi data
     $request->validate([
         'anggota_id' => 'required',
         'jenis_id' => 'required',
-        'tanggal' => 'required|date',
+        'tanggal' => 'nullable|date|after_or_equal:today',
         'durasi' => 'required|string',
     ], [
         'anggota_id.required' => 'Anggota harus dipilih.',
         'jenis_id.required' => 'Jenis harus dipilih.',
-        'tanggal.required' => 'Tanggal tidak boleh kosong.',
         'tanggal.date' => 'Format tanggal tidak valid.',
+        'tanggal.after_or_equal' => 'Tanggal tidak boleh kurang dari hari ini.',
         'durasi.required' => 'Durasi latihan harus diisi.'
     ]);
+
+    // Set tanggal menjadi hari ini jika tidak diisi
+    $data = $request->all();
+    $data['tanggal'] = $data['tanggal'] ?? now()->toDateString();
 
     // Cek keunikan anggota_id, selain yang sedang diupdate
     $existsAnggota = Latihan::where('anggota_id', $request->anggota_id)
@@ -98,19 +103,9 @@ class PageLatihanController extends Controller
         return redirect()->back()->withInput();
     }
 
-    // // Cek keunikan jenis_id, selain yang sedang diupdate
-    // $existsJenis = Latihan::where('jenis_id', $request->jenis_id)
-    //     ->where('id', '!=', $latihan->id)
-    //     ->exists();
-
-    // if ($existsJenis) {
-    //     Alert::error('Gagal', 'Latihan dengan jenis ini sudah ada.');
-    //     return redirect()->back()->withInput();
-    // }
-
     try {
         // Update data jika validasi lolos
-        $latihan->update($request->all());
+        $latihan->update($data);
         Alert::success('Berhasil', 'Data Latihan berhasil diupdate!');
     } catch (\Exception $e) {
         Alert::error('Gagal', 'Terjadi kesalahan saat mengupdate data.');

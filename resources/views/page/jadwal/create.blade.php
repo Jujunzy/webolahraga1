@@ -1,6 +1,6 @@
 @extends('template')
 @section('content')
-<style>
+{{-- <style>
     /* Tambahkan shadow dan border radius untuk card */
     .card {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@
     .mb-3 {
         margin-bottom: 1rem;
     }
-</style>
+</style> --}}
 
 <br><br><br>
 <div class="container">
@@ -88,7 +88,7 @@
 
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+                            <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ old('tanggal', now()->toDateString()) }}" required>
                         </div>
 
                         <div class="d-flex">
@@ -106,8 +106,14 @@
     </div>
 </div>
 <script>
-    const tanggal = document.getElementById('tanggal');
-    const today = new Date().toISOString().split("T")[0];
-    tanggal.setAttribute('min', today);
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const tanggalInput = document.getElementById('tanggal');
+
+        // Jika value kosong, set nilai menjadi hari ini
+        if (!tanggalInput.value) {
+            const today = new Date().toISOString().split("T")[0];
+            tanggalInput.value = today;
+        }
+    });
 </script>
 @endsection

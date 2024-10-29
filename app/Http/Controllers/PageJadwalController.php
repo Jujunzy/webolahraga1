@@ -163,10 +163,6 @@ class PageJadwalController extends Controller
     {
         try {
             $jadwal = Jadwal::find($id);
-            if ($jadwal->jenis) {
-                Alert::error('Gagal', 'Jadwal tidak dapat dihapus karena masih ada data jenis olahraga terkait.');
-                return redirect()->route('jadwal.index');
-            }
             $jadwal->delete();
             Alert::success('Berhasil', 'Jadwal berhasil dihapus!');
         } catch (\Exception $e) {

@@ -126,10 +126,17 @@ class PageEventController extends Controller
     {
         try {
             $event = Event::findOrFail($id);
+
+            // Cek apakah event memiliki relasi dengan pemenang
+            if ($event->pemenang()->exists()) {
+                Alert::error('Gagal', 'Data tidak dapat dihapus karena masih digunakan.');
+                return redirect()->route('event.index');
+            }
+
             $event->delete();
             Alert::success('Berhasil', 'Event berhasil dihapus!');
         } catch (\Exception $e) {
-            Alert::error('Gagal', 'Terjadi kesalahan saat menghapus data.');
+            Alert::error('Gagal', 'Terjadi kesalahan saat menghapus event.');
         }
 
         return redirect()->route('event.index');

@@ -12,17 +12,27 @@
                     <form action="{{ route('pemenang.update', $pemenang->id) }}" method="post">
                         @csrf
                         @method('PUT')
-                        Nama Event : <select name="event_id" id="event_id">
-                            @foreach ($event as $isi )
-                            <option value="{{ $isi->id }}">{{ $isi->event }}</option>
-                            @endforeach
-                        </select><br>
+                        <div class="mb-3">
+                            <label for="event_id" class="form-label">Nama Event</label>
+                            <select name="event_id" id="event_id" class="form-control">
+                                @foreach ($event as $isi)
+                                <option value="{{ $isi->id }}" {{ $isi->id == $pemenang->event_id ? 'selected' : '' }}>
+                                    {{ $isi->event }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                        Nama Anggota : <select name="anggota_id" id="anggota_id">
-                            @foreach ($anggota as $isi )
-                            <option value="{{ $isi->id }}">{{ $isi->anggota }}</option>
-                            @endforeach
-                        </select><br>
+                        <div class="mb-3">
+                            <label for="anggota_id" class="form-label">Nama Anggota</label>
+                            <select name="anggota_id" id="anggota_id" class="form-control">
+                                @foreach ($anggota as $isi)
+                                <option value="{{ $isi->id }}" {{ $isi->id == $pemenang->anggota_id ? 'selected' : '' }}>
+                                    {{ $isi->anggota }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div class="mb-3">
                             <label for="posisi" class="form-label">Posisi</label>

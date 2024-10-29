@@ -26,7 +26,7 @@
 
                         <div class="mb-3">
                             <label for="usia" class="form-label">Usia</label>
-                            <input type="text" id="usia"    value="{{old( 'usia' )}}"    name="usia" class="form-control" required>
+                            <input type="text" id="usia" value="{{old( 'usia' )}}" name="usia" class="form-control" required>
                         </div>
 
                         <div class="mb-3">

@@ -58,7 +58,7 @@ Coded by www.creative-tim.com
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+            <img src="{{ asset('vendor/assets/img/logow.jpg') }}">
           </div>
           <!-- <p>CT</p> -->
         </a>

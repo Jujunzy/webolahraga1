@@ -18,7 +18,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ old('tanggal', $event->tanggal) }}" required>
+                            <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ old('tanggal', now()->toDateString()) }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="lokasi" class="form-label">Lokasi</label>
@@ -43,3 +43,14 @@
     </div>
 </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const tanggalInput = document.getElementById('tanggal');
+
+        // Jika value kosong, set nilai menjadi hari ini
+        if (!tanggalInput.value) {
+            const today = new Date().toISOString().split("T")[0];
+            tanggalInput.value = today;
+        }
+    });
+</script>

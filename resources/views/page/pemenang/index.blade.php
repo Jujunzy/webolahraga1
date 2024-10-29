@@ -30,8 +30,8 @@
                         @foreach ($pemenang as $isi )
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$isi->event->event}}</td>
-                            <td>{{$isi->anggota->anggota}}</td>
+                            <td>{{$isi->event ? $isi->event->event : 'Data tidak tersedia'}}</td>
+                            <td>{{$isi->anggota ? $isi->anggota->anggota : 'Data tidak tersedia'}}</td>
                             <td>{{$isi->posisi}}</td>
                             <td>
                                 <a href="{{ route('pemenang.edit', $isi->id) }}"><i class="fas fa-edit"></i></a> <!-- Edit -->

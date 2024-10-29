@@ -159,6 +159,12 @@ class PageJenisController extends Controller
         try {
             $jenis = Jenis::findOrFail($id);
 
+            // Cek apakah jenis memiliki relasi yang terkait
+            if ($jenis->latihan()->exists() || $jenis->jadwal()->exists()) {
+                Alert::error('Gagal', 'Data tidak dapat dihapus karena masih digunakan.');
+                return redirect()->route('jenisolahraga.index');
+            }
+
             // Hapus gambar jika ada
             if ($jenis->gambar && file_exists(public_path('images/' . $jenis->gambar))) {
                 unlink(public_path('images/' . $jenis->gambar));

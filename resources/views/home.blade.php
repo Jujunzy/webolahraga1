@@ -18,7 +18,7 @@
                     <i class="fa fa-users text-success" style="font-size: 2.5rem;"></i>
                 </div>
                 <h6 class="card-title fw-bold">Anggota</h6>
-                <a href="/anggota" class="stretched-link text-muted"> Data:{{ $data1 }}</a>
+                <a href="/anggota" class="stretched-link text-muted"> Data: {{ $data1 }}</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                     <i class="fa fa-calendar text-danger" style="font-size: 2.5rem;"></i>
                 </div>
                 <h6 class="card-title fw-bold">Event</h6>
-                <a href="/event" class="stretched-link text-muted">Data:{{ $data2 }}</a>
+                <a href="/event" class="stretched-link text-muted">Data: {{ $data2 }}</a>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
                     <i class="fa fa-bullhorn text-warning" style="font-size: 2.5rem;"></i>
                 </div>
                 <h6 class="card-title fw-bold">Pemenang Event</h6>
-                <a href="/pemenang" class="stretched-link text-muted">Data:{{ $data3 }}</a>
+                <a href="/pemenang" class="stretched-link text-muted">Data: {{ $data3 }}</a>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                     <i class="fa fa-user text-primary" style="font-size: 2.5rem;"></i>
                 </div>
                 <h6 class="card-title fw-bold">Pelatih</h6>
-                <a href="/pelatih" class="stretched-link text-muted">Data:{{ $data4 }}</a>
+                <a href="/pelatih" class="stretched-link text-muted">Data: {{ $data4 }}</a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                 <p class="card-category text-muted"></p>
             </div>
             <div class="card-body p-0">
-                <img src="{{ asset('vendor/assets/img/y.jfif') }}"  style="width: 100%; height: 300px; object-fit: cover; opacity: 0.9;">
+                <img src="{{ asset('vendor/assets/img/i.jpg') }}"  style="width: 100%; height: 300px; object-fit: cover; opacity: 0.9;">
             </div>
         </div>
     </div>

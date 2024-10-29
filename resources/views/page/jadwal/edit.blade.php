@@ -12,22 +12,33 @@
                     <form action="{{ route('jadwal.update', $jadwal->id) }}" method="post">
                         @csrf
                         @method('PUT')
-                        Nama Pelatih : <select name="pelatih_id" id="pelatih_id">
-                            @foreach ($pelatih as $isi )
-                            <option value="{{ $isi->id }}">{{ $isi->pelatih }}</option>
-                            @endforeach
-                        </select><br>
+                        <div class="mb-3">
+                            <label for="pelatih_id" class="form-label">Nama Pelatih</label>
+                            <select name="pelatih_id" id="pelatih_id" class="form-control">
+                                @foreach ($pelatih as $isi)
+                                <option value="{{ $isi->id }}" {{ $isi->id == $jadwal->pelatih_id ? 'selected' : '' }}>
+                                    {{ $isi->pelatih }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                        Jenis Olahraga : <select name="jenis_id" id="jenis_id">
-                            @foreach ($jenis as $isi )
-                            <option value="{{ $isi->id }}">{{ $isi->jenis }}</option>
-                            @endforeach
-                        </select><br>
+                        <div class="mb-3">
+                            <label for="jenis_id" class="form-label">Jenis Olahraga</label>
+                            <select name="jenis_id" id="jenis_id" class="form-control">
+                                @foreach ($jenis as $isi)
+                                <option value="{{ $isi->id }}" {{ $isi->id == $jadwal->jenis_id ? 'selected' : '' }}>
+                                    {{ $isi->jenis }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ old('tanggal', $jadwal->tanggal) }}" required>
+                            <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ old('tanggal', now()->toDateString()) }}" required>
                         </div>
+
                         <div class="d-flex">
                             <button type="submit" class="btn btn-primary me-2">
                                 <i class="fas fa-save"></i> Update
@@ -42,4 +53,15 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const tanggalInput = document.getElementById('tanggal');
+
+        // Jika value kosong, set nilai menjadi hari ini
+        if (!tanggalInput.value) {
+            const today = new Date().toISOString().split("T")[0];
+            tanggalInput.value = today;
+        }
+    });
+</script>
 @endsection
