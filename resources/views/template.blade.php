@@ -97,7 +97,7 @@ Coded by www.creative-tim.com
           </li>
           <li class="{{ Request::is('pelatih*') ? 'active' : '' }}">
             <a href="/pelatih" class="nav-link {{ Request::is('pelatih*') ? 'active' : '' }}">
-              <i class="nc-icon nc-single-02"></i>
+              <i class="fa fa-user"></i>
               <p>Pelatih</p>
             </a>
           </li>
