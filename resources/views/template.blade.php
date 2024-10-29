@@ -56,7 +56,7 @@ Coded by www.creative-tim.com
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="home" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="{{ asset('vendor/assets/img/logow.jpg') }}">
           </div>
@@ -73,7 +73,7 @@ Coded by www.creative-tim.com
         <ul class="nav">
             <li class="{{ Request::is('home*') ? 'active' : '' }}">
                 <a href="/home" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
-              <i class="nc-icon nc-bank"></i>
+              <i class="fas fa-home"></i>
               <p>Dashboard</p>
             </a>
           </li>
@@ -91,7 +91,7 @@ Coded by www.creative-tim.com
           </li>
           <li class="{{ Request::is('latihan*') ? 'active' : '' }}">
             <a href="/latihan" class="nav-link {{ Request::is('latihan*') ? 'active' : '' }}">
-              <i class="nc-icon nc-bell-55"></i>
+              <i class="fas fa-bell"></i>
               <p>Latihan</p>
             </a>
           </li>
@@ -109,7 +109,7 @@ Coded by www.creative-tim.com
           </li>
           <li class="{{ Request::is('pemenang*') ? 'active' : '' }}">
             <a href="/pemenang" class="nav-link {{ Request::is('pemenang*') ? 'active' : '' }}">
-              <i class="fa fa-bullhorn"></i>
+              <i class="fas fa-medal"></i>
               <p>Pemenang Event</p>
             </a>
           </li>

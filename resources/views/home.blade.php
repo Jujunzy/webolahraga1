@@ -69,7 +69,7 @@
                 <p class="card-category text-muted"></p>
             </div>
             <div class="card-body p-0">
-                <img src="{{ asset('vendor/assets/img/i.jpg') }}"  style="width: 100%; height: 300px; object-fit: cover; opacity: 0.9;">
+                <img src="{{ asset('vendor/assets/img/i.jpg') }}"  style="width: 100%; height: 400px; object-fit: cover; opacity: 0.9;">
             </div>
         </div>
     </div>
