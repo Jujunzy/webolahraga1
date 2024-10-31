@@ -8,7 +8,7 @@
 
 Coded by www.creative-tim.com
 
- =========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
@@ -62,7 +62,7 @@ Coded by www.creative-tim.com
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="home" class="simple-text logo-normal">
             Klub Olahraga
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
