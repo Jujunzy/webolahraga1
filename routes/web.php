@@ -17,7 +17,6 @@ use App\Http\Controllers\PageEventController;
 use App\Http\Controllers\PagePemenangController;
 use App\Http\Controllers\PageJadwalController;
 use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;

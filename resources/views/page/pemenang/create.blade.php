@@ -1,59 +1,101 @@
 @extends('template')
 @section('content')
-{{-- <style>
-    /* Tambahkan shadow dan border radius untuk card */
-    .card {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
+<style>
+/* Gaya Container dan Card */
+.container {
+    max-width: 700px;
+    margin-top: 20px;
+}
 
-    /* Header card */
-    .card-header {
-        background-color: #007bff;
-        color: rgb(0, 0, 0);
-        text-align: center;
-        padding: 1rem;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
 
-    /* Gaya untuk elemen form */
-    .form-control, select {
-        border-radius: 5px;
-        padding: 0.6rem;
-        border: 1px solid #ced4da;
-        font-size: 1rem;
-    }
+.card-header {
+    background-color: #007bff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 15px;
+}
 
-    /* Styling label dan margin */
-    label.form-label {
-        font-weight: bold;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
+.card-header h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
 
-    /* Tombol simpan dan kembali */
-    .btn-primary, .btn-danger {
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        display: inline-flex;
-        align-items: center;
-    }
+/* Form Label dan Input */
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
 
-    .btn-primary i, .btn-danger i {
-        margin-right: 5px;
-    }
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    transition: box-shadow 0.3s ease;
+}
 
-    /* Margin */
-    .d-flex {
-        gap: 1rem;
-    }
+.form-control:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+    outline: none;
+}
 
-    .mb-3 {
-        margin-bottom: 1rem;
-    }
-</style> --}}
+/* Tombol */
+.btn-primary, .btn-danger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+}
+
+/* Layout D-flex Button */
+.d-flex {
+    gap: 10px;
+}
+
+/* Animasi Hover Input */
+.form-control:hover {
+    background-color: #f8f9fa;
+}
+
+/* Animasi untuk Tombol Save */
+@keyframes buttonHover {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-primary:hover, .btn-danger:hover {
+    animation: buttonHover 0.3s ease-in-out;
+}
+</style>
+
 
 <br><br><br>
 <div class="container">
